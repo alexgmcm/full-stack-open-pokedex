@@ -16,7 +16,8 @@ npm run build
 npm run test
 
 # Install Playwright Browsers
-npx playwright install --with-deps
+# Don't need --with-deps as Render already has these and we don't have su access
+npx playwright install
 
 # Run Playwright tests
 npm run test:e2e
