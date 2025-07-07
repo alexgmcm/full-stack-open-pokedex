@@ -47,10 +47,13 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'] },
     },
 
+    /*
+    Remove webkit as Render doesn't have support out-of-the-box
     {
       name: 'webkit',
       use: { ...devices['Desktop Safari'] },
     },
+    */
 
     /* Test against mobile viewports. */
     // {
