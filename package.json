@@ -9,7 +9,8 @@
     "test": "jest",
     "eslint": "eslint \"./**/*.{js,jsx}\"",
     "build": "webpack --mode production",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "upload-report": "gh-pages -d playwright-report -u 'CI Bot <alexgmcm@gmail.com>' -r https://${GH_TOKEN}@github.com/alexgmcm/full-stack-open-pokedex.git"
   },
   "repository": {
     "type": "git",
@@ -39,6 +40,7 @@
     "eslint": "^8.56.0",
     "eslint-plugin-jest": "^27.6.1",
     "eslint-plugin-react": "^7.33.2",
+    "gh-pages": "^6.3.0",
     "history": "^5.3.0",
     "html-loader": "^4.2.0",
     "html-webpack-plugin": "^5.6.0",

@@ -1,5 +1,9 @@
 name: Deployment pipeline
 
+env:
+  GH_TOKEN: ${{ secrets.GH_TOKEN }}
+
+
 on:
   push:
     branches:
@@ -16,6 +20,9 @@ jobs:
       - name: Install dependencies 
         run: npm install  
 
+      - name: Install gh-pages
+        run: npm install gh-pages --save-dev
+
       - name: Check style
         run: npm run eslint
 
@@ -31,10 +38,13 @@ jobs:
       - name: Run Playwright tests
         run: npm run test:e2e
         
-      - uses: actions/upload-artifact@v4
-        if: ${{ !cancelled() }}
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
+      - name: Upload report
+        run: npm run upload-report 
+
+#      - uses: actions/upload-artifact@v4
+#        if: ${{ !cancelled() }}
+#        with:
+#          name: playwright-report
+#          path: playwright-report/
+#s          retention-days: 30
 
