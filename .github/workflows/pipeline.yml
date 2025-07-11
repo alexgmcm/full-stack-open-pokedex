@@ -3,7 +3,6 @@ name: Deployment pipeline
 env:
   GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
-
 on:
   push:
     branches:
@@ -47,6 +46,15 @@ jobs:
       - name: Trigger Render deployment
         if: ${{ github.event_name == 'push' &&  !contains(join(github.event.commits.*.message),'#skip')  }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
+
+      - name: 
+        uses: rjstone/discord-webhook-notify@v2
+        if: success()
+        with:
+          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
+          severity: info
+          details: All tests passed!
+
 
      
   tag_release:
