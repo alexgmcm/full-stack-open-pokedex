@@ -47,13 +47,21 @@ jobs:
         if: ${{ github.event_name == 'push' &&  !contains(join(github.event.commits.*.message),'#skip')  }}
         run: curl https://api.render.com/deploy/srv-${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_API_KEY }}
 
-      - name: 
-        uses: rjstone/discord-webhook-notify@v2
+      - name: Discord Success Notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
         if: success()
         with:
-          webhookUrl: ${{ secrets.DISCORD_WEBHOOK_URL }}
-          severity: info
-          details: All tests passed!
+           args: 'The project ${{ github.repository }} has been deployed.'
+        
+      - name: Discord Failure Notification
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
+        if: failure()
+        with:
+           args: 'The project ${{ github.repository  }} has failed to deploy.'
 
 
      
