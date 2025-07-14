@@ -61,7 +61,7 @@ jobs:
         uses: Ilshidur/action-discord@0c4b27844ba47cb1c7bee539c8eead5284ce9fa9
         if: failure()
         with:
-           args: 'The project ${{ github.repository  }} has failed to deploy.'
+           args: 'The project ${{ github.repository  }} has failed to deploy. Commit ${{ github.event.head_commit.url }} by ${{ github.event.head_commit.author.name }} has broken the build!'
 
 
      
